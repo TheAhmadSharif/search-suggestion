@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TypeAhead</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="typeahead.js"></script>
+	<script type="text/javascript" src="handlebars.min.js"></script>
+	<!-- <script type="text/javascript" src="bootstrap3-typeahead.js"></script> -->
+
+
+</head>
+<body>
+	<div class="container">
+		<input type="text" class="form-control mt" name="search" id="search" placeholder="Search ..." >
+	</div> <!-- End Container -->
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			    // Defining the local dataset
+			   var links = [
+			   					{name: "Hello world", link: "http://www.example1.com"}, 
+				            	{name: "BMW", link: "http://www.example2.com"},
+				            	{name: "ToyotaW eworld", link: "http://www.example2.com"}
+				            ];
+
+				var source = new Bloodhound({
+				  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+				  queryTokenizer: Bloodhound.tokenizers.whitespace,
+				  local: links
+				});
+
+				source.initialize();
+
+				$('#search').typeahead(null, {
+				  name: 'matched-links',
+				  displayKey: 'name',
+				  source: source.ttAdapter(),
+				  templates: {
+				    empty: [
+				      '<div class="empty-message">',
+				      'Does not match',
+				      '</div>'
+				    ].join('\n'),
+				      suggestion: Handlebars.compile('<p><a href="{{link}}">{{name}}</a></p>')
+				  }
+				});
+});
+	</script>
+</body> 
+</html>
