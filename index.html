@@ -2,26 +2,25 @@
 <html>
 <head>
 	<title>TypeAhead</title>
-
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="typeahead.js"></script>
-	<script type="text/javascript" src="handlebars.min.js"></script>
-	<!-- <script type="text/javascript" src="bootstrap3-typeahead.js"></script> -->
-
 
 </head>
 <body>
 	<div class="container">
-		<input type="text" class="form-control mt" name="search" id="search" placeholder="Search ..." >
+		<div class="mt-30">
+			<div class="d-flex justify-content-center">
+				<input type="text" class="form-control mt" name="search" id="search" placeholder="Search ..." >
+			</div> <!-- End -->
+		</div>  <!-- End -->
 	</div> <!-- End Container -->
 
 
 	<script type="text/javascript">
 		$(document).ready(function(){
-			    // Defining the local dataset
 			   var links = [
-			   					{name: "Hello world", link: "http://www.example1.com"}, 
+			   					{name: "Hello world Bangladesh", link: "http://www.example1.com"}, 
 				            	{name: "BMW", link: "http://www.example2.com"},
 				            	{name: "ToyotaW eworld", link: "http://www.example2.com"}
 				            ];
@@ -44,10 +43,13 @@
 				      'Does not match',
 				      '</div>'
 				    ].join('\n'),
-				      suggestion: Handlebars.compile('<p><a href="{{link}}">{{name}}</a></p>')
+				      suggestion: function(data) {
+					  	return "<a target='_blank' href=" + data.link + ">" + data.name + "</a>"
+
+					  }
 				  }
 				});
-});
+		});
 	</script>
 </body> 
 </html>
